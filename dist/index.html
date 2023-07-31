@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <title>BQC Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale = 1">
+    <script type="module" crossorigin src="./assets/index-d166209e.js"></script>
+    <link rel="stylesheet" href="./assets/index-f2fe9872.css">
+  </head>
+  <body>
+    <div id="app"> 
+        <nav class="container nav--header">
+            <div class="logo prevent-select">
+              <div class="logo--icon"><img src="./assets/logo-d26a4653.webp" alt=""/></div>
+              <div class="logo--text">BQC</div>
+            </div>
+            <form id="search-form">
+              <div class="search-box--container"> 
+                <div class="search-box--icon prevent-select"><img src="./assets/magnifying-glass-94b662e4.png" alt=""/></div>
+                <div class="search-box--input">
+                  <input placeholder="Player id..." autocompleted="false" value=""/>
+                </div>
+              </div>
+              <div class="search-button"> 
+                <button type="submit">FIND</button>
+              </div>
+            </form>
+          </nav>
+
+          <div class="container content--container">
+            <nav class="nav--content"> 
+              <ul> 
+                <li> <a>Dashboard</a></li>
+                <li class="active"><a>User</a></li>
+                <li><a>Report</a></li>
+                <li><a>About</a></li>
+              </ul>
+            </nav>
+            <div class="sub-page prevent-select loading">
+              <div class="sub-page--wrap">
+                <div class="sub-page--title">
+                  <p>User</p>
+                  <div class="sub-page--profile">
+                        <div class="avatar">
+                         
+                          </div>
+                        <div class="info">
+                            <p class="name"></p>
+                            <div class="id">
+                                <p></p>
+                                <button class="copy-icon">
+                                    <img src="./assets/copy-593cbcfe.png" alt=""/>
+                                </button>
+                            </div>
+                        </div>
+                  </div>
+
+                </div>
+                <div class="table-container">
+                  <table class="sub-page--table">
+                    <thead> 
+                      <tr> 
+                        <th>Title</th>
+                        <th>Value</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="modal-update">
+            <div class="modal--background"></div>
+            <div class="modal--content-wrap">
+              <div class="modal--header">
+                <div class="modal--header--title">Level </div>
+                <button class="btn btn-close">X</button>
+              </div>
+              <div class="modal--body"> 
+                <form class="modal--body--form" onsubmit="return false;">
+                  <div class="input-group">
+                    <label class="label" for="new-value-input">New value</label>
+                    <input class="input" id="new-value-input" autocompleted="false" type="number"/>
+                  </div>
+                </form>
+              </div>
+              <div class="modal--footer">
+                <button class="btn btn-close">Close</button>
+                <button class="btn btn-update">Update</button>
+              </div>
+            </div>
+          </div>
+          <div class="notification"></div>
+    </div>
+    <div id="loading-screen" class="">
+        <div class="container">
+          <span class="ring"></span>
+          <span class="ring"></span>
+          <span class="ring"></span>
+        </div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "bqc_tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "dev": "vite",
+    "serve": "vite preview",
+    "deploy": "gh-pages --dist dist --branch 'release'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^5.0.0",
+    "merge-anything": "^5.1.7",
+    "vite": "^4.4.7"
+  }
+}

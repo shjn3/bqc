@@ -1,0 +1,81 @@
+:root {
+    --primary: #aaaab1;
+    --secondary: #111217;
+    --tertiary: #51525c;
+    --blue: #94bee3;
+    --green: #6ebd8b;
+    --grey: #b4b4be;
+    --btn-primary-color: #3f8cff;
+    --btn-success-color: #daf3e3;
+    --body-background-color: #dce1e8;
+    --second-background-color: #f6f7fa;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-color: var(--body-background-color);
+    font-size: 10px;
+}
+
+
+#app {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+img,
+.prevent-select {
+    -drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.container {
+    max-width: 1280px;
+    margin: auto;
+}
+
+ul,
+a {
+    text-decoration: none;
+}
+
+button:hover,
+a:hover {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+
+tbody {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
