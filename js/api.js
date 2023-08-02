@@ -12,7 +12,11 @@ const handleResponse = async function (response) {
 const getPlayerData = async (playerId) => {
     const url = `${app_config.apiHost}/apps/${app_config.appid}/players/${playerId}`
     try {
-        const response = await fetch(url)
+        const controller = new AbortController()
+        setTimeout(() => controller.abort(), 5000)
+        const response = await fetch(url, {
+            signal: controller.signal
+        })
         return handleResponse(response)
     } catch {
         throw new Error(errorData?.error?.message)
@@ -23,14 +27,7 @@ const postPlayerData = async (data) => {
     try {
 
         const url = `${app_config.apiHost}/apps/${app_config.appid}/players`
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify(data)
-        }
-
+        const config = createPostConfig(JSON.stringify(data))
         const response = await fetch(url, config)
         return handleResponse(response)
     }
@@ -39,22 +36,47 @@ const postPlayerData = async (data) => {
     }
 }
 
-const sendLog = async (data) => {
-    const url = app_config.apiLogHost + '/append'
-    const body = JSON.stringify({
-        path: "wizq/bubble-queen-cat/edit-data-log/mobage.json",
-        data: JSON.stringify(data) + '\n'
-    })
-    const config = {
+const getIP = async () => {
+    let ip = ''
+    try {
+        const controller = new AbortController()
+        setTimeout(() => controller.abort(), 5000)
+        await fetch('https://api.ipify.org?format=json', { signal: controller.signal })
+            .then(response => response.json())
+            .then(data => ip = data.ip);
+    }
+    catch {
+        ip = ''
+    }
+    return ip
+}
+const createPostConfig = (body) => {
+
+    const controller = new AbortController()
+    setTimeout(() => controller.abort(), 5000)
+    return {
         headers: {
             'Content-Type': 'application/json',
         },
         method: 'POST',
         body,
-        redirect: 'follow'
+        signal: controller.signal
     }
-    const response = await fetch(url, config)
 
+}
+
+const sendLog = async (data) => {
+    const ip = await getIP()
+    if (data.hasOwnProperty('adminId')) {
+        data.adminId += ip
+    }
+    const url = app_config.apiLogHost + '/append'
+    const body = JSON.stringify({
+        path: "wizq/bubble-queen-cat/edit-data-log/mobage.json",
+        data: JSON.stringify(data) + '\n'
+    })
+    const config = createPostConfig(body)
+    const response = await fetch(url, config)
     if (!response.ok) {
         const errorData = await response.text();
         throw new Error(errorData?.error?.message)

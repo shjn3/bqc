@@ -4,7 +4,7 @@ import LoadingScreen from './components/LoadingScreen.js';
 import SubPage, { SUB_PAGE_EVENTS } from './components/SubPage.js';
 import LoginForm, { LOGIN_FORM_EVENTS } from './components/LoginForm.js';
 import localStorage from './localStorage.js';
-import Router, { PAGE } from './router.js';
+import Router, { PAGE } from './Router.js';
 
 export default class Login {
   notification;
@@ -88,7 +88,7 @@ export default class Login {
     })
 
     this.loginForm.addEventListener(LOGIN_FORM_EVENTS.SUCCESS, (e) => {
-      const token = e.detail.token
+      const token = `${e.detail.token}-${Date.now()}-`
       localStorage.writeLocalStorageItem('token', token)
       this.isSuccess = true
       this.promiseSuccess = new Promise(resolve => {

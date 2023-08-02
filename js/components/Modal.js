@@ -2,6 +2,9 @@ import Home from '../Home.js'
 import PlayerAPI from '../api.js'
 import BaseComponent from './BaseComponent.js'
 import config from '../../configs/api.json' assert{type: 'json'}
+import localStorage from '../localStorage.js'
+import { merge } from 'merge-anything'
+
 
 export const MODAL_EVENTS = {
     PRE_UPDATE: 'PRE_UPDATE',
@@ -9,9 +12,6 @@ export const MODAL_EVENTS = {
     UPDATE_FAIL: 'UPDATE_FAIL',
     UPDATE_FINALLY: 'UPDATE_FINALLY'
 }
-
-import { merge } from 'merge-anything'
-
 export default class Modal extends BaseComponent {
     closeBtn
     footerCloseBtn
@@ -44,6 +44,17 @@ export default class Modal extends BaseComponent {
         }
     }
 
+    isAllowUpdate = true;
+
+    async sendLog(data) {
+        try {
+            this.isAllowUpdate = false;
+            await PlayerAPI.sendLog(data)
+        }
+        finally {
+            this.isAllowUpdate = true
+        }
+    }
 
     initEvents() {
         const modal = this.instanceElement
@@ -60,6 +71,12 @@ export default class Modal extends BaseComponent {
         this.updateBtn.addEventListener('click', async () => {
             try {
                 this.dispatchEvent(MODAL_EVENTS.PRE_UPDATE)
+                if (!this.isAllowUpdate) {
+                    this.dispatchEvent(MODAL_EVENTS.UPDATE_FAIL, {
+                        message: `Cann't update right now. Please comeback after 1 minute!`,
+                    })
+                    return
+                }
                 const playerId = Home.instance.getPlayerId()
                 if (playerId) {
                     const originData = Home.instance.playerData
@@ -68,6 +85,7 @@ export default class Modal extends BaseComponent {
                     let currentData = JSON.parse(JSON.stringify(originData))
 
                     let fromValue = 0
+                    const toValue = Math.max(parseInt(this.input.value), 0)
                     if (currentData.hasOwnProperty('customFields')) {
                         let temp = currentData.customFields
                         for (let i = 0; i < keys.length; i++) {
@@ -80,33 +98,49 @@ export default class Modal extends BaseComponent {
                             fromValue = temp
                         }
                     }
-                    let customFields = {}
-                    let newValueByKey = customFields
-                    for (let i = 0; i < keys.length - 1; i++) {
-                        newValueByKey[keys[i]] = {}
-                        newValueByKey = newValueByKey[keys[i]]
+
+                    if (fromValue == toValue) {
+                        this.dispatchEvent(MODAL_EVENTS.UPDATE_SUCCESS, {
+                            message: 'Update Success',
+                            newValue: this.input.value,
+                            playerData: currentData
+                        })
+
                     }
-                    newValueByKey[keys[keys.length - 1]] = Math.max(parseInt(this.input.value), 0)
+                    else {
+                        let customFields = {}
+                        let newValueByKey = customFields
+                        for (let i = 0; i < keys.length - 1; i++) {
+                            newValueByKey[keys[i]] = {}
+                            newValueByKey = newValueByKey[keys[i]]
+                        }
+                        newValueByKey[keys[keys.length - 1]] = Math.max(parseInt(this.input.value), 0)
 
-                    const data = merge(currentData, { customFields })
-                    const logData = {
-                        appid: config.appid,
-                        adminId: '2',
-                        userId: playerId,
-                        property: keys[keys.length - 1],
-                        fromValue,
-                        toValue: Math.max(parseInt(this.input.value), 0),
-                        dateTime: new Date().toString(),
+
+                        const token = localStorage.getLocalStorageItem('token')
+
+                        const adminId = `${token}${Intl.DateTimeFormat().resolvedOptions().timeZone}-`
+
+                        const data = merge(currentData, { customFields })
+                        const logData = {
+                            appid: config.appid,
+                            adminId,
+                            userId: playerId,
+                            property: keys[keys.length - 1],
+                            fromValue,
+                            toValue,
+                            dateTime: new Date().toString(),
+                        }
+
+
+                        const json = await PlayerAPI.postPlayerData(data)
+                        this.sendLog(logData)
+                        this.dispatchEvent(MODAL_EVENTS.UPDATE_SUCCESS, {
+                            message: 'Update Success',
+                            newValue: this.input.value,
+                            playerData: json.data
+                        })
                     }
-
-
-                    const json = await PlayerAPI.postPlayerData(data)
-                    const success = PlayerAPI.sendLog(logData)
-                    this.dispatchEvent(MODAL_EVENTS.UPDATE_SUCCESS, {
-                        message: 'Update Success',
-                        newValue: this.input.value,
-                        playerData: json.data
-                    })
                 }
             }
             catch (e) {
