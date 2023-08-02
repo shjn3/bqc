@@ -4,6 +4,7 @@ import BaseComponent from './BaseComponent.js'
 import config from '../../configs/api.json' assert{type: 'json'}
 import localStorage from '../localStorage.js'
 import { merge } from 'merge-anything'
+import Router, { PAGE } from '../Router.js'
 
 
 export const MODAL_EVENTS = {
@@ -78,7 +79,12 @@ export default class Modal extends BaseComponent {
                     return
                 }
                 const playerId = Home.instance.getPlayerId()
+                if (!Router.auth()) {
+                    Router.renderPage(PAGE.LOGIN)
+                    return
+                }
                 if (playerId) {
+
                     const originData = Home.instance.playerData
                     const keys = this.input.dataset['control'].split('.')
 
@@ -119,7 +125,7 @@ export default class Modal extends BaseComponent {
 
                         const token = localStorage.getLocalStorageItem('token')
 
-                        const adminId = `${token}${Intl.DateTimeFormat().resolvedOptions().timeZone}-`
+                        const adminId = `${token}-${Intl.DateTimeFormat().resolvedOptions().timeZone}-`
 
                         const data = merge(currentData, { customFields })
                         const logData = {

@@ -1,3 +1,4 @@
+import Router, { PAGE } from '../Router.js'
 import PlayerAPI from '../api.js'
 import BaseComponent from './BaseComponent.js'
 export const SEARCH_EVENTS = {
@@ -26,6 +27,10 @@ export default class SearchForm extends BaseComponent {
     handleSubmitForm = async (e) => {
         try {
             e.preventDefault();
+            if (!Router.auth()) {
+                Router.renderPage(PAGE.LOGIN)
+                return
+            }
             this.dispatchEvent(SEARCH_EVENTS.PRE)
             const playerId = this.input?.value
             if (!playerId) {

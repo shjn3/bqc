@@ -13,9 +13,7 @@ export default class Login {
   _instance
 
   static init() {
-    if (!this._instance) {
-      this._instance = new Login()
-    }
+    this._instance = new Login()
   }
 
   static get instance() {
@@ -88,7 +86,7 @@ export default class Login {
     })
 
     this.loginForm.addEventListener(LOGIN_FORM_EVENTS.SUCCESS, (e) => {
-      const token = `${e.detail.token}-${Date.now()}-`
+      const token = `${e.detail.token}`
       localStorage.writeLocalStorageItem('token', token)
       this.isSuccess = true
       this.promiseSuccess = new Promise(resolve => {

@@ -19,9 +19,7 @@ export default class Home {
   _instance
 
   static init() {
-    if (!this._instance) {
-      this._instance = new Home()
-    }
+    this._instance = new Home()
   }
 
   static get instance() {
