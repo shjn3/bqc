@@ -7,6 +7,9 @@ import SubPage, { SUB_PAGE_EVENTS } from './components/SubPage.js';
 import logo from '../src/logo.webp'
 import glassIcon from '../src/magnifying-glass.png'
 import copyIcon from '../src/copy.png'
+import localStorage from './localStorage.js';
+import Router, { PAGE } from './Router.js';
+import LogoutIcon from '../src/logout.png'
 
 export default class Home {
   modal;
@@ -14,8 +17,10 @@ export default class Home {
   notification;
   loadingScreen;
   subPage;
+  logOutBtn;
   rowSelected
   playerData
+
   _instance
 
   static init() {
@@ -32,6 +37,7 @@ export default class Home {
   constructor() {
 
     this.renderHTML()
+    this.createLogoutBtn()
     this.createModal()
     this.createSearchForm()
     this.createNotification()
@@ -47,17 +53,20 @@ export default class Home {
       <div class="logo--icon"><img src="${logo}" alt=""/></div>
       <div class="logo--text">BQC</div>
     </div>
-    <form id="search-form">
-      <div class="search-box--container"> 
-        <div class="search-box--icon prevent-select"><img src="${glassIcon}" alt=""/></div>
-        <div class="search-box--input">
-          <input placeholder="Player id..." autocomplete="off" value=""/>
+    <div>
+      <form id="search-form">
+        <div class="search-box--container"> 
+          <div class="search-box--icon prevent-select"><img src="${glassIcon}" alt=""/></div>
+          <div class="search-box--input">
+            <input placeholder="Player id..." autocomplete="off" value=""/>
+          </div>
         </div>
-      </div>
-      <div class="search-button"> 
-        <button type="submit">FIND</button>
-      </div>
-    </form>
+        <div class="search-button"> 
+          <button type="submit">FIND</button>
+        </div>
+      </form>
+    </div>
+    <div class="btn-logout"><button type="button">LOGOUT</button></div>
   </nav>
 
   <div class="container content--container">
@@ -220,6 +229,18 @@ export default class Home {
     })
     this.searchFrom.addEventListener(SEARCH_EVENTS.FINALLY, () => {
       this.loadingScreen.hideLoadingScreen()
+    })
+  }
+
+  createLogoutBtn() {
+    this.logOutBtn = document.querySelector('.btn-logout button')
+    this.logOutBtn.addEventListener('click', (e) => {
+      localStorage.removeLocalStorageItem('token')
+      this.loadingScreen.showLoadingScreen()
+      setTimeout(() => {
+        this.loadingScreen.hideLoadingScreen()
+        Router.renderPage(PAGE.LOGIN)
+      }, 500);
     })
   }
 

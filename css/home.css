@@ -29,6 +29,12 @@
     display: flex;
 }
 
+.container.nav--header>:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -130,6 +136,32 @@
     box-shadow: 0px 0px 5px 1px rgba(72, 195, 138, 0.5);
 }
 
+.btn-logout {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.btn-logout button {
+    height: 36px;
+    color: white;
+    background-color: var(--btn-primary-color);
+    border: 1px solid var(--btn-primary-color);
+    font-weight: 500;
+}
+
+.btn-logout button:hover {
+    background-color: var(--btn-darken-primary-color);
+    border: 1px solid var(--btn-darken-primary-color);
+}
+
+.btn-logout button:focus,
+.btn-logout button:active {
+    box-shadow: 0px 0px 5px 1px var(--btn-darken-primary-color);
+}
+
+
 /***********************************/
 /*              CONTENT            */
 /***********************************/
@@ -199,21 +231,21 @@
     height: 100px;
     box-shadow: 10px 10px 10px 0.1rem rgba(173, 172, 172, 0.1);
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 .sub-page--profile .avatar {
     display: flex;
     align-items: center;
     margin-left: 15px;
-    width:56px;
-    height:56px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
 }
 
 .sub-page--profile .avatar img {
     width: 100%;
-    height:100%;
+    height: 100%;
     border-radius: 50%;
 }
 
@@ -223,7 +255,7 @@
     justify-content: center;
     margin-left: 15px;
     width: 100%;
-    height:100%;
+    height: 100%;
 }
 
 .sub-page--profile p {
@@ -252,7 +284,7 @@
     background: none;
     border: none;
     position: relative;
-    padding:0;
+    padding: 0;
 }
 
 .sub-page--profile .id .copy-icon:hover img {
@@ -261,30 +293,30 @@
 
 
 
-.sub-page.loading .sub-page--profile .avatar{
+.sub-page.loading .sub-page--profile .avatar {
     border-radius: 50%;
 }
 
 .sub-page.loading .sub-page--profile .avatar,
 .sub-page.loading .sub-page--profile .info .name,
-.sub-page.loading .sub-page--profile .info .id{
+.sub-page.loading .sub-page--profile .info .id {
     background: #f0f2f5;
 }
 
 
-.sub-page.loading .sub-page--profile .info .name{
-    height:1.3em;
-    width:200px;
+.sub-page.loading .sub-page--profile .info .name {
+    height: 1.3em;
+    width: 200px;
     margin-bottom: 0.1em;
 
 }
 
-.sub-page.loading .sub-page--profile .info .id{
-    height:1em;
-    width:200px;
+.sub-page.loading .sub-page--profile .info .id {
+    height: 1em;
+    width: 200px;
 }
 
-.sub-page.loading .sub-page--profile .id img{
+.sub-page.loading .sub-page--profile .id img {
     visibility: hidden;
     opacity: 0;
 }
@@ -535,12 +567,12 @@
     position: fixed;
     top: 42px;
     right: 20px;
-    z-index:50;
+    z-index: 50;
 }
 
 .toast--container {
     position: relative;
-    padding:  10px;
+    padding: 10px;
     background-color: white;
     width: 200px;
     box-shadow: 0px 0px 10px 1px var(--grey);
@@ -605,29 +637,30 @@
 .toast--container.error .toast--body .message {
     color: #d85562;
 }
-.toast--footer{
+
+.toast--footer {
     position: relative;
-}
-.toast--footer .wrap--countdown .countdown {
-    position: absolute;
-    width:calc(100% + 20px);
-    height:5px;
-    bottom: -10px;
-    left:-10px;
 }
 
-.toast--footer .countdown 
-{
+.toast--footer .wrap--countdown .countdown {
+    position: absolute;
+    width: calc(100% + 20px);
+    height: 5px;
+    bottom: -10px;
+    left: -10px;
+}
+
+.toast--footer .countdown {
     position: relative;
-    height:100%;
+    height: 100%;
     background-color: #d85562;
 }
 
-.toast--container.success .toast--footer .countdown{
+.toast--container.success .toast--footer .countdown {
     background-color: #4cbda6;
 }
 
-.toast--container.error .toast--footer .countdown{
+.toast--container.error .toast--footer .countdown {
     background-color: #d85562;
 }
 
@@ -642,58 +675,60 @@
 </div>
 </div> */
 
-#loading-screen{
-    width:100%;
-    height:100%;
-    background-color: rgba(255,255,255,0.6);
+#loading-screen {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
     display: flex;
     position: fixed;
-    top:0;
+    top: 0;
     z-index: 100;
     visibility: hidden;
 }
 
-#loading-screen.loading-hide{
+#loading-screen.loading-hide {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear 0.33s, opacity 0.33s linear;
 }
-#loading-screen.loading-show{
+
+#loading-screen.loading-show {
     visibility: visible;
     opacity: 1;
     animation: fadeIn ease 0.3s;
 }
 
-#loading-screen .container{
+#loading-screen .container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#loading-screen .container .ring{
-    width:100px;
-    height:100px;
-    border: 0px solid rgba(0,0,0,0.5);
+
+#loading-screen .container .ring {
+    width: 100px;
+    height: 100px;
+    border: 0px solid rgba(0, 0, 0, 0.5);
     border-radius: 50%;
-    position:absolute;
+    position: absolute;
 }
 
-#loading-screen .container .ring:nth-child(1){
+#loading-screen .container .ring:nth-child(1) {
     border-bottom-width: 6px;
-    border-color:#ff4c60;
-    animation:rotation1 1s linear infinite
+    border-color: #ff4c60;
+    animation: rotation1 1s linear infinite
 }
 
-#loading-screen .container .ring:nth-child(2){
+#loading-screen .container .ring:nth-child(2) {
     border-bottom-width: 6px;
-    border-color:#ffd15c;
-    animation:rotation2 1s linear infinite
+    border-color: #ffd15c;
+    animation: rotation2 1s linear infinite
 }
 
-#loading-screen .container .ring:nth-child(3){
+#loading-screen .container .ring:nth-child(3) {
     border-bottom-width: 6px;
-    border-color:#6c6ce5;
-    animation:rotation3 1s linear infinite
+    border-color: #6c6ce5;
+    animation: rotation3 1s linear infinite
 }
 
 
@@ -708,38 +743,40 @@
 }
 
 .modal.active .modal--background {
-    animation: fade-in-modal-background 0.3s ease ;
+    animation: fade-in-modal-background 0.3s ease;
 }
 
 .toast--container {
-    animation: show-toast 1s ease forwards; 
+    animation: show-toast 1s ease forwards;
 }
 
-.toast--footer .countdown{
-     animation:countdown 4s ease forwards; 
+.toast--footer .countdown {
+    animation: countdown 4s ease forwards;
 }
 
 @keyframes fadeIn {
-    0%{
+    0% {
         opacity: 0;
     }
 
-    100%{
+    100% {
         opacity: 1;
     }
-    
+
 }
 
 
 @keyframes countdown {
-    0%{
-        width:100%;
+    0% {
+        width: 100%;
     }
-    100%{
+
+    100% {
         width: 0%;
     }
-    
+
 }
+
 @keyframes show-modal {
     from {
         transform: translateY(-100%);
@@ -765,85 +802,89 @@
 }
 
 
-@keyframes show-toast{
-    0%{
+@keyframes show-toast {
+    0% {
         transform: translateX(100%);
         opacity: 0;
     }
 
-    25%{
+    25% {
         transform: translateX(-10%);
     }
 
-    50%{
+    50% {
         transform: translateX(0%);
         opacity: 1;
     }
 
-    100%{
+    100% {
         transform: translateX(-10px);
-      
+
     }
 }
 
 
-@keyframes slide-out-toast{
-    0%{
+@keyframes slide-out-toast {
+    0% {
         transform: translateX(-10%);
     }
 
-    50%{
+    50% {
         transform: translateX(0%);
     }
 
-    75%{
+    75% {
         transform: translateX(-10%);
     }
 
-    100%{
+    100% {
         transform: translateX(150%);
     }
 }
 
 @keyframes scale-y-toast {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
-        padding:0;
-        margin:0;
-        height:0;
+
+    100% {
+        padding: 0;
+        margin: 0;
+        height: 0;
         opacity: 0;
     }
-    
+
 }
 
 @keyframes rotation1 {
-    0%{
+    0% {
         transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
     }
-    100%{
+
+    100% {
         transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
     }
-    
+
 }
 
 @keyframes rotation2 {
-    0%{
+    0% {
         transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
     }
-    100%{
+
+    100% {
         transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
     }
-    
+
 }
 
 @keyframes rotation3 {
-    0%{
+    0% {
         transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
     }
-    100%{
+
+    100% {
         transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
-    
+
 }
