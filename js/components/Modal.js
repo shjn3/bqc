@@ -132,7 +132,7 @@ export default class Modal extends BaseComponent {
                             index = TOKEN.adminToken.indexOf(token)
                         }
                         adminId += index
-                        adminId += `${token}`
+                        adminId += `-${token}`
                         const data = merge(currentData, { customFields })
                         const logData = {
                             appid: config.appid,
