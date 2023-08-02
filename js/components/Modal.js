@@ -5,6 +5,7 @@ import config from '../../configs/api.json' assert{type: 'json'}
 import localStorage from '../localStorage.js'
 import { merge } from 'merge-anything'
 import Router, { PAGE } from '../Router.js'
+import TOKEN from '../../configs/token.json' assert{type: 'json'}
 
 
 export const MODAL_EVENTS = {
@@ -124,9 +125,14 @@ export default class Modal extends BaseComponent {
 
 
                         const token = localStorage.getLocalStorageItem('token')
-
-                        const adminId = `${token}-${Intl.DateTimeFormat().resolvedOptions().timeZone}-`
-
+                        let adminId = 'User'
+                        let index = TOKEN.userToken.indexOf(token)
+                        if (index == -1) {
+                            adminId = 'Admin'
+                            index = TOKEN.adminToken.indexOf(token)
+                        }
+                        adminId += index
+                        adminId += `${token}`
                         const data = merge(currentData, { customFields })
                         const logData = {
                             appid: config.appid,

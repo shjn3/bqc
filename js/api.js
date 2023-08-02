@@ -66,10 +66,10 @@ const createPostConfig = (body) => {
 }
 
 const sendLog = async (data) => {
-    const ip = await getIP()
-    if (data.hasOwnProperty('adminId')) {
-        data.adminId += ip
-    }
+    // const ip = await getIP()
+    // if (data.hasOwnProperty('adminId')) {
+    //     data.adminId += ip
+    // }
     const url = app_config.apiLogHost + '/append'
     const body = JSON.stringify({
         path: "wizq/bubble-queen-cat/edit-data-log/mobage.json",

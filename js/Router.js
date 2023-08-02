@@ -1,7 +1,7 @@
 import Home from "./Home"
 import Login from "./login"
 import localStorage from "./localStorage"
-import tokens from '../configs/token.json' assert{type: 'json'}
+import TOKEN from '../configs/token.json' assert{type: 'json'}
 
 export const PAGE = {
     HOME: 'HOME',
@@ -12,8 +12,8 @@ export const PAGE = {
 export default class Router {
 
     static auth() {
-        const users = tokens.users
-        const admins = tokens.admin
+        const users = TOKEN.userToken
+        const admins = TOKEN.adminToken
         const token = localStorage.getLocalStorageItem('token')
         return users.indexOf(token) != -1 || admins.indexOf(token) != -1
     }
