@@ -1,6 +1,7 @@
 import Home from '../Home.js'
 import PlayerAPI from '../api.js'
 import BaseComponent from './BaseComponent.js'
+import config from '../../configs/api.json' assert{type: 'json'}
 
 export const MODAL_EVENTS = {
     PRE_UPDATE: 'PRE_UPDATE',
@@ -65,6 +66,20 @@ export default class Modal extends BaseComponent {
                     const keys = this.input.dataset['control'].split('.')
 
                     let currentData = JSON.parse(JSON.stringify(originData))
+
+                    let fromValue = 0
+                    if (currentData.hasOwnProperty('customFields')) {
+                        let temp = currentData.customFields
+                        for (let i = 0; i < keys.length; i++) {
+                            const key = keys[i]
+                            if (temp.hasOwnProperty(key)) {
+                                temp = temp[key]
+                            }
+                        }
+                        if (typeof temp == 'number') {
+                            fromValue = temp
+                        }
+                    }
                     let customFields = {}
                     let newValueByKey = customFields
                     for (let i = 0; i < keys.length - 1; i++) {
@@ -74,8 +89,19 @@ export default class Modal extends BaseComponent {
                     newValueByKey[keys[keys.length - 1]] = Math.max(parseInt(this.input.value), 0)
 
                     const data = merge(currentData, { customFields })
+                    const logData = {
+                        appid: config.appid,
+                        adminId: '2',
+                        userId: playerId,
+                        property: keys[keys.length - 1],
+                        fromValue,
+                        toValue: Math.max(parseInt(this.input.value), 0),
+                        dateTime: new Date().toString(),
+                    }
+
 
                     const json = await PlayerAPI.postPlayerData(data)
+                    const success = PlayerAPI.sendLog(logData)
                     this.dispatchEvent(MODAL_EVENTS.UPDATE_SUCCESS, {
                         message: 'Update Success',
                         newValue: this.input.value,

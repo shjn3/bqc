@@ -1,7 +1,11 @@
 import '/css/style.css'
 import '/css/home.css'
-import Home from './Home.js'
+import '/css/login.css'
+import Router, { PAGE } from './Router.js'
+import localStorage from './localStorage.js'
+
 
 window.onload = () => {
-    const home = Home.instance
+    localStorage.removeLocalStorageItem('token')
+    Router.renderPage(PAGE.HOME)
 }

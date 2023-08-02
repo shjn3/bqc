@@ -15,6 +15,7 @@ export default class SearchForm extends BaseComponent {
         this.input = document.querySelector('.search-box--input input')
         this.button = document.querySelector('.search-button button')
         this.initEvents()
+        this.input?.focus()
     }
 
     initEvents() {

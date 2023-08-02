@@ -39,9 +39,26 @@ const postPlayerData = async (data) => {
     }
 }
 
-
+const sendLog = async (data) => {
+    const url = app_config.apiLogHost + '/append'
+    const rawData = JSON.stringify(data) + '\n'
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: {
+            path: "wizq/bubble-queen-cat/edit-data-log/mobage.json",
+            data: rawData
+        },
+        redirect: 'follow'
+    }
+    const response = await fetch(url, config)
+    return handleResponse(response)
+}
 
 export default {
     getPlayerData,
     postPlayerData,
+    sendLog
 }
