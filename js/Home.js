@@ -4,6 +4,9 @@ import SearchForm, { SEARCH_EVENTS } from './components/SearchForm.js';
 import Notification, { TOAST_TYPE } from './components/Notification.js';
 import LoadingScreen from './components/LoadingScreen.js';
 import SubPage, { SUB_PAGE_EVENTS } from './components/SubPage.js';
+import logo from '../src/logo.webp'
+import glassIcon from '../src/magnifying-glass.png'
+import copyIcon from '../src/copy.png'
 
 export default class Home {
   modal;
@@ -43,12 +46,12 @@ export default class Home {
       `
     <nav class="container nav--header">
     <div class="logo prevent-select">
-      <div class="logo--icon"><img src="/src/logo.webp" alt=""/></div>
+      <div class="logo--icon"><img src="${logo}" alt=""/></div>
       <div class="logo--text">BQC</div>
     </div>
     <form id="search-form">
       <div class="search-box--container"> 
-        <div class="search-box--icon prevent-select"><img src="/src/magnifying-glass.png" alt=""/></div>
+        <div class="search-box--icon prevent-select"><img src="${glassIcon}" alt=""/></div>
         <div class="search-box--input">
           <input placeholder="Player id..." autocomplete="off" value=""/>
         </div>
@@ -81,7 +84,7 @@ export default class Home {
                     <div class="id">
                         <p></p>
                         <button class="copy-icon">
-                            <img src="/src/copy.png" alt=""/>
+                            <img src="${copyIcon}" alt=""/>
                         </button>
                     </div>
                 </div>
